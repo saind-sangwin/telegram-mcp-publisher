@@ -1,0 +1,17 @@
+node_modules/
+.pnpm-store/
+.env
+.env.*
+!.env.example
+.DS_Store
+npm-debug.log*
+outputs/
+.release/
+
+# Private business plans and environment-specific production tooling.
+deploy/
+ops/
+docs/COMMERCIALIZATION_*.md
+docs/OPERATIONS.md
+scripts/release.sh
+scripts/oauth-release-gate.mjs
