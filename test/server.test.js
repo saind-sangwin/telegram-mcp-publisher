@@ -87,8 +87,8 @@ test("MCP previews and publishes one exact digest to multiple allowlisted channe
   const env = {
     TELEGRAM_BOT_TOKEN: "secret",
     TELEGRAM_CHANNELS_JSON:
-      '{"Alterego":"@alterego_news","Alterego sub channel":"-100222"}',
-    TELEGRAM_DEFAULT_CHANNEL: "Alterego",
+      '{"News":"@demo_news","News test":"-100222"}',
+    TELEGRAM_DEFAULT_CHANNEL: "News",
   };
   const requests = [];
   const server = createDigestServer(env, {
@@ -96,7 +96,7 @@ test("MCP previews and publishes one exact digest to multiple allowlisted channe
       fetchImpl: async (url, init) => {
         const body = JSON.parse(init.body);
         requests.push({ url, body });
-        const isMain = body.chat_id === "@alterego_news";
+        const isMain = body.chat_id === "@demo_news";
         return new Response(
           JSON.stringify({
             ok: true,
@@ -104,8 +104,8 @@ test("MCP previews and publishes one exact digest to multiple allowlisted channe
               message_id: isMain ? 51 : 52,
               date: 1_700_000_000,
               chat: isMain
-                ? { id: -100111, title: "Alterego", username: "alterego_news" }
-                : { id: -100222, title: "Alterego sub channel" },
+                ? { id: -100111, title: "News", username: "demo_news" }
+                : { id: -100222, title: "News test" },
             },
           }),
           { status: 200, headers: { "content-type": "application/json" } },
@@ -120,15 +120,15 @@ test("MCP previews and publishes one exact digest to multiple allowlisted channe
 
   const argumentsWithoutHash = {
     markdown: "Уникальная проверка нескольких каналов",
-    channels: ["Alterego", "Alterego sub channel"],
+    channels: ["News", "News test"],
   };
   try {
     const listed = await client.callTool({ name: "list_channels", arguments: {} });
     assert.deepEqual(
       listed.structuredContent.channels.map(({ name, isDefault }) => ({ name, isDefault })),
       [
-        { name: "Alterego", isDefault: true },
-        { name: "Alterego sub channel", isDefault: false },
+        { name: "News", isDefault: true },
+        { name: "News test", isDefault: false },
       ],
     );
     assert.ok(listed.structuredContent.channels.every((channel) => channel.id));
@@ -138,8 +138,8 @@ test("MCP previews and publishes one exact digest to multiple allowlisted channe
       arguments: argumentsWithoutHash,
     });
     assert.deepEqual(preview.structuredContent.channels, [
-      "Alterego",
-      "Alterego sub channel",
+      "News",
+      "News test",
     ]);
 
     const published = await client.callTool({
@@ -154,7 +154,7 @@ test("MCP previews and publishes one exact digest to multiple allowlisted channe
     assert.equal(requests.length, 2);
     assert.deepEqual(
       requests.map((request) => request.body.chat_id),
-      ["@alterego_news", "-100222"],
+      ["@demo_news", "-100222"],
     );
 
     const duplicate = await client.callTool({

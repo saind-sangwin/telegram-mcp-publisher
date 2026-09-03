@@ -36,7 +36,7 @@ class MockHttpResponse extends Writable {
 }
 
 async function temporaryMediaFixture(t, extraEnv = {}) {
-  const storageDir = await mkdtemp(join(tmpdir(), "alterego-media-test-"));
+  const storageDir = await mkdtemp(join(tmpdir(), "telegram-media-test-"));
   t.after(() => rm(storageDir, { recursive: true, force: true }));
   const env = {
     MEDIA_PUBLIC_BASE_URL: "https://publisher.example/telegram-media",

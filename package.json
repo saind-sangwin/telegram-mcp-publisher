@@ -1,5 +1,5 @@
 {
-  "name": "alterego-telegram-publisher",
+  "name": "telegram-mcp-publisher",
   "version": "4.0.0",
   "private": true,
   "type": "module",

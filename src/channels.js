@@ -38,7 +38,7 @@ export function telegramChannelRegistry(env = process.env) {
     }
     if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
       throw new Error(
-        'TELEGRAM_CHANNELS_JSON must be an object such as {"Alterego":"@channel"}.',
+        'TELEGRAM_CHANNELS_JSON must be an object such as {"News":"@channel"}.',
       );
     }
 

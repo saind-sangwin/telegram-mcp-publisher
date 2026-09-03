@@ -30,7 +30,7 @@ test("sends Telegram HTML with previews disabled", async () => {
   const result = await sendTelegramMessage("<b>Digest</b>", {
     config: {
       botToken: "secret",
-      channelId: "@alterego_news",
+      channelId: "@demo_news",
       apiBase: "https://telegram.invalid",
       disableNotification: false,
     },
@@ -42,7 +42,7 @@ test("sends Telegram HTML with previews disabled", async () => {
           result: {
             message_id: 42,
             date: 1_700_000_000,
-            chat: { id: -1001, title: "Alterego", username: "alterego_news" },
+            chat: { id: -1001, title: "News", username: "demo_news" },
           },
         }),
         { status: 200, headers: { "content-type": "application/json" } },
@@ -51,10 +51,10 @@ test("sends Telegram HTML with previews disabled", async () => {
   });
 
   assert.equal(request.url, "https://telegram.invalid/botsecret/sendMessage");
-  assert.equal(request.body.chat_id, "@alterego_news");
+  assert.equal(request.body.chat_id, "@demo_news");
   assert.equal(request.body.parse_mode, "HTML");
   assert.equal(request.body.link_preview_options.is_disabled, true);
-  assert.equal(result.url, "https://t.me/alterego_news/42");
+  assert.equal(result.url, "https://t.me/demo_news/42");
 });
 
 test("surfaces Telegram API errors", async () => {
@@ -128,7 +128,7 @@ function successfulTelegramResponse(messageId = 42) {
       result: {
         message_id: messageId,
         date: 1_700_000_000,
-        chat: { id: -1001, title: "Alterego", username: "alterego_news" },
+        chat: { id: -1001, title: "News", username: "demo_news" },
       },
     }),
     { status: 200, headers: { "content-type": "application/json" } },
@@ -143,7 +143,7 @@ test("sends a classic cover through sendPhoto", async () => {
     {
       config: {
         botToken: "secret",
-        channelId: "@alterego_news",
+        channelId: "@demo_news",
         apiBase: "https://telegram.invalid",
         disableNotification: false,
       },
@@ -177,7 +177,7 @@ test("sends inline images through sendRichMessage", async () => {
     {
       config: {
         botToken: "secret",
-        channelId: "@alterego_news",
+        channelId: "@demo_news",
         apiBase: "https://telegram.invalid",
         disableNotification: true,
       },
@@ -213,7 +213,7 @@ test("uploads a local rich image directly with multipart form data", async () =>
     {
       config: {
         botToken: "secret",
-        channelId: "@alterego_news",
+        channelId: "@demo_news",
         apiBase: "https://telegram.invalid",
         disableNotification: false,
       },
@@ -254,7 +254,7 @@ test("uploads a local classic cover directly as the photo field", async () => {
     {
       config: {
         botToken: "secret",
-        channelId: "@alterego_news",
+        channelId: "@demo_news",
         apiBase: "https://telegram.invalid",
         disableNotification: false,
       },

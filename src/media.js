@@ -3,7 +3,7 @@ import { createReadStream } from "node:fs";
 import { mkdir, readFile, readdir, stat, unlink, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
-const DEFAULT_STORAGE_DIR = "/tmp/alterego-telegram-publisher-media";
+const DEFAULT_STORAGE_DIR = "/tmp/telegram-mcp-publisher-media";
 const DEFAULT_MAX_BYTES = 10 * 1024 * 1024;
 const DEFAULT_TTL_SECONDS = 60 * 60;
 const CLEANUP_INTERVAL_MS = 10 * 60 * 1000;

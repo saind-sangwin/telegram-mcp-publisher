@@ -8,28 +8,28 @@ import {
 
 test("keeps TELEGRAM_CHANNEL_ID as a single-channel fallback", () => {
   const env = {
-    TELEGRAM_CHANNEL_ID: "@alterego_news",
-    TELEGRAM_DEFAULT_CHANNEL: "Alterego",
+    TELEGRAM_CHANNEL_ID: "@demo_news",
+    TELEGRAM_DEFAULT_CHANNEL: "News",
   };
   assert.deepEqual(listTelegramChannels(env), [
-    { name: "Alterego", isDefault: true },
+    { name: "News", isDefault: true },
   ]);
   assert.deepEqual(resolveTelegramChannels(undefined, env), [
-    { name: "Alterego", id: "@alterego_news" },
+    { name: "News", id: "@demo_news" },
   ]);
 });
 
 test("resolves multiple allowlisted names case-insensitively and in requested order", () => {
   const env = {
     TELEGRAM_CHANNELS_JSON:
-      '{"Alterego":"@alterego_news","Alterego sub channel":"-100222"}',
-    TELEGRAM_DEFAULT_CHANNEL: "Alterego",
+      '{"News":"@demo_news","News test":"-100222"}',
+    TELEGRAM_DEFAULT_CHANNEL: "News",
   };
   assert.deepEqual(
-    resolveTelegramChannels([" alterego SUB   channel ", "ALTEREGO"], env),
+    resolveTelegramChannels([" news TEST ", "NEWS"], env),
     [
-      { name: "Alterego sub channel", id: "-100222" },
-      { name: "Alterego", id: "@alterego_news" },
+      { name: "News test", id: "-100222" },
+      { name: "News", id: "@demo_news" },
     ],
   );
 });
@@ -37,15 +37,15 @@ test("resolves multiple allowlisted names case-insensitively and in requested or
 test("rejects unknown names, duplicate targets, and an ambiguous default", () => {
   const env = {
     TELEGRAM_CHANNELS_JSON:
-      '{"Alterego":"@alterego_news","Alterego sub channel":"-100222"}',
+      '{"News":"@demo_news","News test":"-100222"}',
   };
   assert.throws(() => resolveTelegramChannels(undefined, env), /No default/);
   assert.throws(
     () => resolveTelegramChannels(["Unknown"], env),
-    /Available channels: Alterego, Alterego sub channel/,
+    /Available channels: News, News test/,
   );
   assert.throws(
-    () => resolveTelegramChannels(["Alterego", "alterego"], env),
+    () => resolveTelegramChannels(["News", "news"], env),
     /duplicated/,
   );
 });

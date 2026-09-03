@@ -1,4 +1,4 @@
-# Alterego Telegram Publisher
+# Telegram MCP Publisher
 
 MCP-сервер для безопасной публикации подготовленных ChatGPT/Codex материалов в
 один или несколько Telegram-каналов. Сервер поддерживает обычные посты,

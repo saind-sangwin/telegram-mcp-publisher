@@ -16,7 +16,7 @@ const sample = `Intro that must not be published.
 
 🟠 Код \`scam\` и [ссылка](https://t.me/swapi).
 
-#Новости #Alterego
+#Новости #News
 :::
 
 ### Источники для проверки
@@ -159,11 +159,11 @@ test("does not mistake an inner rich code block for an outer wrapper", () => {
 test("binds exact target channels to the preview hash", () => {
   const formatted = formatPublication({ markdown: "Один и тот же текст" });
   const main = bindPublicationChannels(formatted, [
-    { name: "Alterego", id: "@alterego_news" },
+    { name: "News", id: "@demo_news" },
   ]);
   const both = bindPublicationChannels(formatted, [
-    { name: "Alterego", id: "@alterego_news" },
-    { name: "Alterego sub channel", id: "-100222" },
+    { name: "News", id: "@demo_news" },
+    { name: "News test", id: "-100222" },
   ]);
   assert.equal(main.contentSha256, both.contentSha256);
   assert.notEqual(main.sha256, both.sha256);
