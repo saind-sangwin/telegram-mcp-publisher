@@ -1,0 +1,28 @@
+{
+  "name": "alterego-telegram-publisher",
+  "version": "4.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.19.0",
+  "description": "A tenant-aware MCP gateway for safe, policy-controlled Telegram publishing.",
+  "scripts": {
+    "start": "node src/server.js",
+    "db:migrate": "node src/migrate.js",
+    "db:cleanup": "node src/cleanup.js",
+    "check": "node --check src/server.js && node --check src/onboarding.js && node --check src/oauth.js && node --check src/db.js && node --check src/migrate.js && node --check src/cleanup.js && node --check src/postgres-store.js && node --check src/saas-store.js && node --check src/format.js && node --check src/channels.js && node --check src/media.js && node --check src/telegram.js && node --check scripts/configure-telegram-webhook.mjs",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.20.2",
+    "jose": "^6.2.10",
+    "pg": "^8.23.0",
+    "undici": "^7.29.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "pg-mem": "^3.0.14"
+  }
+}

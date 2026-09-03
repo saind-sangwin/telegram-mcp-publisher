@@ -1,0 +1,15 @@
+.git
+.env
+.env.*
+!.env.example
+.pnpm-store
+node_modules
+outputs
+.release
+npm-debug.log*
+deploy
+ops
+docs/COMMERCIALIZATION_*.md
+docs/OPERATIONS.md
+scripts/release.sh
+scripts/oauth-release-gate.mjs
